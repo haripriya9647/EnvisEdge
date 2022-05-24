@@ -1,5 +1,4 @@
-from abc import ABC, abstractMethod
-
+from abc import ABC, abstractmethod
 class AbstractDatabaseManager(ABC):
     
 
@@ -8,19 +7,18 @@ class AbstractDatabaseManager(ABC):
         pass
 
     
-    @abstractMethod
+    @abstractmethod
     def read_data(self):
         raise NotImplementedError("Database interface not defined.")
 
-    @abstractMethod
+    @abstractmethod
     def create_data(self):
         raise NotImplementedError("Database interface not defined.")
 
-    @abstractMethod
+    @abstractmethod
     def update_data(self):
         raise NotImplementedError("Database interface not defined.")
 
-    @abstractMethod
+    @abstractmethod
     def delete_data(self):
         raise NotImplementedError("Database interface not defined.")
-
