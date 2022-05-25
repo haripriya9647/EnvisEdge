@@ -1,1 +1,2 @@
-import . from s3_interface
+from . import s3_interface
+

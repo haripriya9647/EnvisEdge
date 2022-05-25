@@ -1,8 +1,15 @@
 import os
-import AbstractDatabaseManager from abstract_db_interface
+from abstract_db_interface import AbstractDatabaseManager
+import boto3
+from fedrec.utilities.error_handler import errorhandler
+import pandas as pd
+
+#TODO: Add Asynchronization. Wrappers Needed.
+
 
 class S3Interface(AbstractDatabaseManager):
 
+    @errorhandler
     def __init__(self,
                 region=None,
                 aws_access_key=None,
@@ -28,6 +35,9 @@ class S3Interface(AbstractDatabaseManager):
         print(self.current_buckets)
         pass
 
+
+
+    @errorhandler
     def listAllBuckets(self):
         if self.current_buckets == None:
             raise Exception("Info not available.")
@@ -80,7 +90,8 @@ class S3Interface(AbstractDatabaseManager):
     #     except Exception as e:
     #         print(e)
     
-    
+
+    @errorhandler
     def read_data(self, data_id):
         """
 
@@ -103,6 +114,7 @@ class S3Interface(AbstractDatabaseManager):
         return body
 
 
+    @errorhandler
     def create_data(self, data_id, body):
         if self.current_buckets == None:
             raise Exception("Error connecting to database.")
@@ -121,6 +133,8 @@ class S3Interface(AbstractDatabaseManager):
         self.s3.Bucket(bucket).upload_file(Filename='foo.csv', Key=model_path)
         os.remove('foo.csv')
 
+
+    @errorhandler
     def update_data(self, data_id, new_body):
         if self.current_buckets == None:
             raise Exception("Error connecting to database.")
@@ -131,6 +145,7 @@ class S3Interface(AbstractDatabaseManager):
         self.create_data(data_id, new_body)
 
 
+    @errorhandler
     def delete_data(self, data_id):
         if self.s3 == None:
             raise Exception("Error connecting to database.")
