@@ -1,4 +1,5 @@
 from functools import wraps
+from multiprocessing.sharedctypes import Value
 import tracemalloc
 
 
@@ -14,6 +15,8 @@ def errorhandler(func):
         
         except NotImplementedError as ner:
             print("NotImplementedError: ", ner)
+        except ValueError as ver:
+            print("ValueError: ", ver)
         except OSError as osr:
             print("OSError: ", osr)
         except ReferenceError as rfe:
