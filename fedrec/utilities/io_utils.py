@@ -48,13 +48,13 @@ def tuplify(dictionary):
     def value(x): return dictionary[x]
     return tuple(key for key in sorted(dictionary, key=value))
 
-@errorhandler
+
 def dictify(iterable):
     assert isinstance(iterable, Iterable)
     return {v: i for i, v in enumerate(iterable)}
 
 
-@errorhandler
+
 def dash_separated_ints(value):
     vals = value.split("-")
     for val in vals:
@@ -67,7 +67,7 @@ def dash_separated_ints(value):
 
     return value
 
-@errorhandler
+
 def dash_separated_floats(value):
     vals = value.split("-")
     for val in vals:
