@@ -7,15 +7,10 @@ The Simulation
 Before we put a code into production we need to evaluate the models and
 run benchmarks to get the expected accuracy gains.
 
-There is a `simulator <https://github.com/NimbleEdge/EnvisEdge>`__
-created by NimbleEdge exactly for this purpose.
-
--  The FL simulator is designed in a way to make the architecture as
-   close to real-world deployments as possible.
--  You can simulate both normal ML training and FL training with the
-   simulator.
--  The design is scalable to hit 10000+ workers running in the
-   simulation.
+But, dont worry NimbleEdge has created a `simulator <https://github.com/NimbleEdge/EnvisEdge>`__
+for this purpose.This FL simulator is designed to make the architecture as close to real-world 
+deployment as possible. You can simulate both normal ML training and FL training with the 
+simulator and the design is scalable to hit 10000+ workers running in the simulation.
 
 Let’s take an example of FB AI’s
 `DLRM <https://arxiv.org/abs/1906.00091>`__. This is one of the standard
@@ -26,10 +21,9 @@ Data <https://www.kaggle.com/c/criteo-display-ad-challenge>`__.
 Model Definition
 ----------------
 
-All the model descriptions go into
+The description of each model is located in 
 `fedrec/modules <https://github.com/NimbleEdge/EnvisEdge/tree/main/fedrec/modules>`__.
-You can add your folder of models as well and hook the registry with
-it.
+As well, you can add your own collection of models and hook the registry to it.
 
 We will create a file dlrm.py and write its implementation in standard
 PyTorch code.
