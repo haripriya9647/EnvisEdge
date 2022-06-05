@@ -36,9 +36,9 @@ Federated Learning can be categorised into two types:
     
     When Federated Learning takes place through suitable federated techniques
     from data across a wide range of devices.
-    Typically, Cross-Device FL uses Horizontal Federated Learning or Homogeneous Federated Learning and it
-    can be described as a Federated Learning method which uses a dataset which shares the same features but
-    are different in samples.
+    Typically, Cross-Device FL uses Horizontal Federated Learning or Homogeneous Federated 
+    Learning and it can be described as a Federated Learning method which uses a dataset 
+    which shares the same features but are different in samples.
 
     * So when data sets share the same features but are different in samples.
     * This is also called as Homogeneous Federated Learning.
@@ -165,5 +165,5 @@ live A/B testing, and staged rollout. It is precisely similar to how a
 typically trained model will be deployed.
 
 We will first build a `normal ML
-pipeline <https://docs.nimbleedge.ai/tutorials/tutorial-part-2-starting_with_nimbleedge>`__ and then
-convert it into Federated Setting.
+pipeline <https://docs.nimbleedge.ai/tutorials/tutorial-part-2-starting_with_nimbleedge>`__ and 
+then convert it into Federated Setting.
