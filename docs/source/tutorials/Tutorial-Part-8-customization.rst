@@ -23,7 +23,7 @@ Any parameter needed to instantiate the PyTorch module can be supplied
 by simply creating a key-value pair in the config file.
 
 For example DLRM requires ``arch_feature_emb_size``, ``arch_mlp_bot``,
-etc
+etc.
 
 .. code:: 
 
@@ -54,7 +54,7 @@ into the registry.
 
 You can define your own modules and add them in the
 `fedrec/modules <fedrec/modules>`__. Finally set the ``name`` flag of
-``model`` tag in the config file
+``model`` tag in the config file.
 
 .. code::
 
