@@ -116,5 +116,5 @@ For now, we will just take random selection…
 
 **Hurray!**
 
-And it’s done. Simply run the `train_fl.py <../../train_fl.py>`__ and see
+And it’s done. Simply run the `train_fl.py <../../../train_fl.py>`__ and see
 the simulator in action.
