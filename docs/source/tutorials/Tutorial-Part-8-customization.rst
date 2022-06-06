@@ -11,7 +11,7 @@ Good for non-persistent and dynamic settings like GPU device
 
 *In case of conflict, the CLI argument supersedes the config file parameter.*
 For further reference, check out `training config
-flags <configs/flags.md>`__
+flags <https://github.com/NimbleEdge/EnvisEdge/blob/main/configs/regression.yml>`__
 
 Model Architecture
 ------------------

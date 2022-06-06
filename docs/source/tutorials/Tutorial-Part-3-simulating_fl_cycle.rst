@@ -9,7 +9,7 @@ worker. Each worker has an assigned role that determines the kind of
 computation it will perform.It is the role of the orchestrator to define 
 these roles for the workers and initialize them.
 
-For the purposes of the simulator, the `train_fl <../../train_fl.py>`__ file
+For the purposes of the simulator, the `train_fl <https://github.com/NimbleEdge/EnvisEdge/blob/main/train.py>`__ file
 behaves as the orchestrator and initiates all the workers.
 
 Federated Worker
