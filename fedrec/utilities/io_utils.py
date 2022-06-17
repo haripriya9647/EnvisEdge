@@ -5,6 +5,8 @@ import torch
 
 
 def load_tensors(path):
+    """ This function loads the path of tensor.
+    """
     if os.path.isfile(path) == True:
         tensors = torch.load(path)
         return tensors
@@ -13,6 +15,8 @@ def load_tensors(path):
 
 
 def to_dict_with_sorted_values(d, key=None):
+    """This function returns sorted values to dict.
+    """
     return {k: sorted(v, key=key) for k, v in d.items()}
 
 
@@ -30,6 +34,8 @@ def to_dict_with_set_values(d):
 
 
 def save_tensors(tensors, path) -> str:
+    """ This function saves the tensors path.
+    """
     if os.path.isfile(path) == True:
         torch.save(tensors, path)
         return path
@@ -41,6 +47,9 @@ def save_tensors(tensors, path) -> str:
 
 
 def tuplify(dictionary):
+    """This function takes dictionary as parameter and 
+       returns tuple. 
+    """
     if dictionary is None:
         return tuple()
     assert isinstance(dictionary, dict)
@@ -54,6 +63,8 @@ def dictify(iterable):
 
 
 def dash_separated_ints(value):
+    """ This function return dash seperated int values.
+    """
     vals = value.split("-")
     for val in vals:
         try:
@@ -67,6 +78,8 @@ def dash_separated_ints(value):
 
 
 def dash_separated_floats(value):
+    """ This function returns dash seperated list of float values.
+    """
     vals = value.split("-")
     for val in vals:
         try:
