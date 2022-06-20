@@ -5,8 +5,11 @@ import torch
 
 
 def load_tensors(path):
-    """ This function loads the path of tensor.
-    """
+   """
+   Checks if the file path is true, if yes then it
+   loads the path to tensor and returns it else raises 
+   a value error if the path doesn't exist.
+   """
     if os.path.isfile(path) == True:
         tensors = torch.load(path)
         return tensors
@@ -15,12 +18,18 @@ def load_tensors(path):
 
 
 def to_dict_with_sorted_values(d, key=None):
-    """This function returns sorted values to dict.
+    """
+    Takes dictionary d as parameter and returns dict
+    with v values sorted.
     """
     return {k: sorted(v, key=key) for k, v in d.items()}
 
 
 def to_dict_with_set_values(d):
+    """
+    Returns the result in set by checking the type 
+    of values being passed through the parameter d.
+    """
     result = {}
     for k, v in d.items():
         hashable_v = []
@@ -34,7 +43,11 @@ def to_dict_with_set_values(d):
 
 
 def save_tensors(tensors, path) -> str:
-    """ This function saves the tensors path.
+    """
+    Checks if the file path is true then it returns 
+    the tensor path else the path is joined to
+    "completeName" which is further returned.
+
     """
     if os.path.isfile(path) == True:
         torch.save(tensors, path)
@@ -47,9 +60,6 @@ def save_tensors(tensors, path) -> str:
 
 
 def tuplify(dictionary):
-    """This function takes dictionary as parameter and 
-       returns tuple. 
-    """
     if dictionary is None:
         return tuple()
     assert isinstance(dictionary, dict)
@@ -63,7 +73,8 @@ def dictify(iterable):
 
 
 def dash_separated_ints(value):
-    """ This function return dash seperated int values.
+    """ 
+    Return dash seperated list of int values.
     """
     vals = value.split("-")
     for val in vals:
@@ -78,7 +89,8 @@ def dash_separated_ints(value):
 
 
 def dash_separated_floats(value):
-    """ This function returns dash seperated list of float values.
+    """ 
+    Returns dash seperated list of float values.
     """
     vals = value.split("-")
     for val in vals:
