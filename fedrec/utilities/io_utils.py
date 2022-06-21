@@ -74,7 +74,8 @@ def dictify(iterable):
 
 def dash_separated_ints(value):
     """ 
-    Return dash seperated list of int values.
+    This method takes a list of int as input 
+    and returns the dash-seperated list of values.
     """
     vals = value.split("-")
     for val in vals:
@@ -90,7 +91,15 @@ def dash_separated_ints(value):
 
 def dash_separated_floats(value):
     """ 
-    Returns dash seperated list of float values.
+    This method takes a list of float values as input 
+    and returns the dash-seperated list of values.
+
+    Example
+    -------
+    value = "1.0-1.0"
+    x = value.split("-")
+    print(x)
+
     """
     vals = value.split("-")
     for val in vals:
