@@ -32,6 +32,7 @@ def md_solver(n, alpha, d0=None, B=None, round_dim=True, k=None):
     round_dim -- (bool); flag for rounding dims to nearest pow of 2
     k -- (torch.LongTensor) ; Vector of average number of queries per inference
     '''
+    #noqa: E501
     n, indices = torch.sort(n)
     k = k[indices] if k is not None else torch.ones(len(n))
     d = alpha_power_rule(n.type(torch.float) / k, alpha, d0=d0, B=B)
