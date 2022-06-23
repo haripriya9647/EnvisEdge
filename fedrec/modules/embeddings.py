@@ -65,6 +65,17 @@ def pow_2_round(dims):
 
 @registry.load("embedding", "torch_bag")
 class EmbeddingBag(nn.EmbeddingBag):
+    '''
+    The embedding bag function sums the "Bags" of embeddings without
+    noticing the intermediate embeddings.EmbeddedBag is time and cost efficinet process.
+
+    Due to the fact that embedding_bag isn't required to return an intermediate result, it does not generate a Tensor object. It
+    proceeds straight to computing the reduction, pulling the
+    appropriate data from the weight argument in accordance with
+    the indices in the input argument. This resulted in better
+    performance since there was no need to create the embedding Tensor.
+    '''
+
     def __init__(
             self,
             num_embeddings: int,
@@ -78,7 +89,7 @@ class EmbeddingBag(nn.EmbeddingBag):
             include_last_offset: bool = False,
             init=False) -> None:
 
-        super().__init__(num_embeddings,
+     super().__init__(num_embeddings,
                          embedding_dim,
                          max_norm=max_norm,
                          norm_type=norm_type,
@@ -87,7 +98,7 @@ class EmbeddingBag(nn.EmbeddingBag):
                          sparse=sparse,
                          _weight=_weight,
                          include_last_offset=include_last_offset)
-        if init:
+    if init:
             # initialize embeddings
             with torch.no_grad():
                 W = np.random.uniform(
