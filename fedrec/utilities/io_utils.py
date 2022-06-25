@@ -7,7 +7,7 @@ import torch
 def load_tensors(path):
    """
    Checks if the file path is true, if yes then it
-   loads the path to tensor and returns it else raises 
+   loads the path to tensor and returns it else raises
    a value error if the path doesn't exist.
    """
     if os.path.isfile(path) == True:
@@ -27,7 +27,7 @@ def to_dict_with_sorted_values(d, key=None):
 
 def to_dict_with_set_values(d):
     """
-    Returns the result in set by checking the type 
+    Returns the result in set by checking the type
     of values being passed through the parameter d.
     """
     result = {}
@@ -44,7 +44,7 @@ def to_dict_with_set_values(d):
 
 def save_tensors(tensors, path) -> str:
     """
-    Checks if the file path is true then it returns 
+    Checks if the file path is true then it returns
     the tensor path else the path is joined to
     "completeName" which is further returned.
 
@@ -73,8 +73,8 @@ def dictify(iterable):
 
 
 def dash_separated_ints(value):
-    """ 
-    This method takes a list of int as input 
+    """
+    This method takes a list of int as input
     and returns the dash-seperated list of values.
     """
     vals = value.split("-")
@@ -90,15 +90,16 @@ def dash_separated_ints(value):
 
 
 def dash_separated_floats(value):
-    """ 
-    This method takes a list of float values as input 
+    """
+    This method takes a list of float values as input
     and returns the dash-seperated list of values.
 
     Example
     -------
-    value = "1.0-1.0"
-    x = value.split("-")
-    print(x)
+    >>> value = "1.0-1.0"
+    >>> x = value.split("-")
+    >>> print(x)
+    ['1.0','1.0']
 
     """
     vals = value.split("-")
