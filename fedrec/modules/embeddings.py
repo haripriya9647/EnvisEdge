@@ -31,8 +31,7 @@ def md_solver(n, alpha, d0=None, B=None, round_dim=True, k=None):
     B -- (torch.FloatTensor); Scalar, parameter budget for embedding layer
     round_dim -- (bool); flag for rounding dims to nearest pow of 2
     k -- (torch.LongTensor) ; Vector of average number of queries per inference
-    '''
-    #noqa: E501
+    ''' #noqa: E501
     n, indices = torch.sort(n)
     k = k[indices] if k is not None else torch.ones(len(n))
     d = alpha_power_rule(n.type(torch.float) / k, alpha, d0=d0, B=B)
@@ -68,10 +67,12 @@ def pow_2_round(dims):
 class EmbeddingBag(nn.EmbeddingBag):
     '''
     The embedding bag function sums the "Bags" of embeddings without
-    noticing the intermediate embeddings.EmbeddedBag is time and cost efficinet process.
+    noticing the intermediate embeddings.EmbeddedBag is a time and
+    cost efficient process.
 
-    Due to the fact that embedding_bag isn't required to return an intermediate result, it does not generate a Tensor object. It
-    proceeds straight to computing the reduction, pulling the
+    Due to the fact that embedding_bag isn't required to return
+    an intermediate result, it does not generate a Tensor object.
+    It proceeds straight to computing the reduction, pulling the
     appropriate data from the weight argument in accordance with
     the indices in the input argument. This resulted in better
     performance since there was no need to create the embedding Tensor.
@@ -90,7 +91,7 @@ class EmbeddingBag(nn.EmbeddingBag):
             include_last_offset: bool = False,
             init=False) -> None:
 
-     super().__init__(num_embeddings,
+        super().__init__(num_embeddings,
                          embedding_dim,
                          max_norm=max_norm,
                          norm_type=norm_type,
