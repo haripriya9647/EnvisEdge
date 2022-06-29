@@ -100,7 +100,7 @@ class EmbeddingBag(nn.EmbeddingBag):
                          sparse=sparse,
                          _weight=_weight,
                          include_last_offset=include_last_offset)
-    if init:
+        if init:
             # initialize embeddings
             with torch.no_grad():
                 W = np.random.uniform(
@@ -112,6 +112,11 @@ class EmbeddingBag(nn.EmbeddingBag):
 
 @registry.load("embedding", "pr_emb")
 class PrEmbeddingBag(nn.Module):
+    '''
+    PrEmbeddingBag function assists in initializing and
+    assigning the values to the parameters such as weights,
+    num_embeddings, embedding_dim, base_dim, index for summation.
+    '''
     def __init__(self,
                  num_embeddings,
                  embedding_dim,
