@@ -48,7 +48,19 @@ def save_tensors(tensors, path) -> str:
     the tensor path else the path is joined to
     "completeName" which is further returned.
 
+    Example
+    -------
+    >>> import tensorflow
+
+      # creating object and asigning location
+    >>> model=tensorflow.keras.Model()
+    >>> path='Model_folder/Files'
+
+      # saving model to specified path
+    >>> model.save_weights(path)
+
     """
+
     if os.path.isfile(path) == True:
         torch.save(tensors, path)
         return path
