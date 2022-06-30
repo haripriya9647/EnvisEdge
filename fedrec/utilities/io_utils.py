@@ -88,6 +88,14 @@ def dash_separated_ints(value):
     """
     This method takes a list of int as input
     and returns the dash-seperated list of values.
+
+    Example
+    -------
+    >>> value = "2-3-4"
+    >>> x = value.split("-")
+    >>> print(x)
+    ['2','3','4']
+
     """
     vals = value.split("-")
     for val in vals:
