@@ -243,6 +243,24 @@ class EnvisTrainer(EnvisBase):
         return results
 
     def train(self, modeldir=None):
+        """
+        Gives the result of trained dataset.
+        In this method, lr_scheduler is the learning rate
+        scheduler which  detemines the step size at each
+        parameter and optimizes,calculates the total training length
+        loading the training parameters ,training the model,
+        tqdm is the default iterator, it takes an iterator object
+        as argument,and displays a progress bar as
+        it iterates over it applying the gradient
+        and then computing the metrics such as training
+        loss saving the model and then returning it.
+        Arguments
+        ------------
+        modeldir-the model.
+        Returns(dict) the trained model.
+        ---------
+        results(dict)
+        """
         last_step, current_epoch = self.saver.restore(modeldir)
         lr_scheduler = self.get_scheduler(
             self.optimizer, last_epoch=last_step)

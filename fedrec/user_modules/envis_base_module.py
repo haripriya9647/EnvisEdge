@@ -9,7 +9,10 @@ from fedrec.utilities.random_state import Reproducible
 
 class EnvisBase(Reproducible):
     """
-    Base class for Envis.
+    Base class for Envis.This class is concerned with the state
+    of the envis as it first gets the default state of the envis
+    and further sets the state.Later it stores the state followed
+    by updating it further.
     """
 
     def __init__(self, config: Dict):
@@ -23,7 +26,7 @@ class EnvisBase(Reproducible):
         # TODO : make a single global function
         # for this method.
         # location : [serializer_registry.py]
-        
+
         if hasattr(obj, "serialize") and check_envis:
             setattr(obj, "storage", self.storage)
             return obj

@@ -6,6 +6,13 @@ from fedrec.utilities.registry import Registrable
 
 @Registrable.register_class_ref
 class EnvisPreProcessor(Serializable):
+    """
+    A class for preprocessing envis where preprocessing means the
+    process of input data to produce output that is used as a
+    input to another program.
+
+    """
+
     def __init__(
             self,
             dataset_config,
