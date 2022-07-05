@@ -60,6 +60,12 @@ def alpha_power_rule(n, alpha, d0=None, B=None):
 
 
 def pow_2_round(dims):
+    '''
+    Calculates to the power of 2
+    Arguments
+    ---------
+    dims -- (torch.LongTensor);takes dimension as input
+    '''
     return 2 ** torch.round(torch.log2(dims.type(torch.float)))
 
 
@@ -116,6 +122,17 @@ class PrEmbeddingBag(nn.Module):
     PrEmbeddingBag function assists in initializing and
     assigning the values to the parameters such as weights,
     num_embeddings, embedding_dim, base_dim, index for summation.
+
+    Parameters
+    ----------
+    num_embeddings : int
+        size of the dictionary of embeddings.
+    embedding_dim : int
+        the size of each embedding vector.
+    base_dim :
+        the base dimension of embedding
+    index : int
+         the index of embedding
     '''
     def __init__(self,
                  num_embeddings,
@@ -333,6 +350,29 @@ class QREmbeddingBag(nn.Module):
         nn.init.uniform_(self.weight_r, np.sqrt(1 / self.num_categories))
 
     def forward(self, input, offsets=None, per_sample_weights=None):
+        '''
+        Defines the forward computation performed by EmbeddingBag
+        at every call.Should be overridden by all subclasses.
+
+        Arguments
+        ---------
+        input: Tensor
+           Tensor containing bags of indices into the embedding matrix.
+        offsets: Tensor
+           offsets determines the starting index position of
+           each bag (sequence) in input.
+        per_sample_weights: Tensor
+           a tensor of float/double weights, or None to
+           indicate all weights should be taken to be 1.If
+           specified per_sample_weights must have exactly
+           the same shape as input and is treated as having
+           the same offsets,if those are not None. Only
+           supported for mode='sum'.
+
+        Returns
+        -------
+        (int)The output tensor of shape (B, embedding_dim)
+        '''
         input_q = (input / self.num_collisions).long()
         input_r = torch.remainder(input, self.num_collisions).long()
 
@@ -357,6 +397,14 @@ class QREmbeddingBag(nn.Module):
         return embed
 
     def extra_repr(self):
+        """"
+        In this model its a necessity to set the
+        extra representation of the module to
+        print customized extra information,and one
+        should re-implement this method in their own
+        modules.Both single-line and multi-line
+        strings are acceptable.
+        """
         s = '{num_embeddings}, {embedding_dim}'
         if self.max_norm is not None:
             s += ', max_norm={max_norm}'
