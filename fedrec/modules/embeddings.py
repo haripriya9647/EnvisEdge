@@ -44,6 +44,12 @@ def md_solver(n, alpha, d0=None, B=None, round_dim=True, k=None):
 
 
 def alpha_power_rule(n, alpha, d0=None, B=None):
+    """
+    Alpha power rule first checks the value of d0 and B. If
+    they are none then it proceeds by calculating the value
+    of lambda by using an exponential operator else  a value
+    error to specify the value of d0 and B.
+    """
     if d0 is not None:
         lamb = d0 * (n[0].type(torch.float) ** alpha)
     elif B is not None:
@@ -61,7 +67,7 @@ def alpha_power_rule(n, alpha, d0=None, B=None):
 
 def pow_2_round(dims):
     '''
-    Calculates to the power of 2
+    Calculates the nearest 2 to the power of value
     Arguments
     ---------
     dims -- (torch.LongTensor);takes dimension as input
