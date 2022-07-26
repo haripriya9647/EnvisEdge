@@ -20,6 +20,11 @@ quote them to define Federated Learning.
 
 Types of Federated learning
 ---------------------------
+.. figure:: _static/fl_types.jpg
+   :alt: Federated Learning Types
+   :width: 70%
+   :height: 50%
+
 
 * **Model Centric:**
 
