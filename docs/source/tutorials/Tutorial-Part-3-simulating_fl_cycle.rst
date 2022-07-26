@@ -1,6 +1,11 @@
 Simulating Federated Learning Cycle
 ===================================
 
+.. figure:: _static/fl_cycle.jpg
+   :alt: Federated Learning Types
+   :width: 70%
+   :height: 50%
+
 FL Simulation
 -------------
 
