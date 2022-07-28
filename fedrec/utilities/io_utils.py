@@ -6,9 +6,10 @@ import torch
 
 def load_tensors(path):
    """
-   Checks if the file path is true, if yes then it
-   loads the path to tensor and returns it else raises
-   a value error if the path doesn't exist.
+   Loads tensor by taking path as an argument and first
+   confirms if the path is true then it loads path to the
+   tensor and returns it else shows an error i.e path
+   doesn't exist.
    """
     if os.path.isfile(path) == True:
         tensors = torch.load(path)
