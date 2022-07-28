@@ -9,8 +9,9 @@ from fedrec.utilities.registry import Registrable
 class StateTensors(EnvisTensors):
     """
     The StateTensors class majorly focuses on naming
-    tensor states and their paths, with serialization
-    and deserialization methods implemented.
+    tensor states and splitting the paths, with the help
+    of implementation of serialization and deserialization
+    methods.
 
     Parameters
     ----------
@@ -97,13 +98,6 @@ class StateTensors(EnvisTensors):
     def serialize(self):
         """
         Serializes a tensor object.
-
-        Parameters
-        -----------
-        obj: object
-            The object to serialize.
-        file: file
-            The file to write to.
 
         Returns
         --------

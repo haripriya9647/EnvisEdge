@@ -30,7 +30,15 @@ class TrainerState(ActorState):
     local_training_steps = attr.ib()
 
     def serialize(self):
-        # creates a dictionary of attributes to serialize
+        """
+        Creates a dictionary to serialize the data objects.
+
+        Attributes
+        ----------
+        response_dict : dict
+            Dictionary with serialized data objects
+
+        """
         response_dict = {}
         response_dict["worker_index"] = self.worker_index
         response_dict["round_idx"] = self.round_idx

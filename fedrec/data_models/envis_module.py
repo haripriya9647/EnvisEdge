@@ -10,9 +10,9 @@ from fedrec.serialization.serializer_registry import (deserialize_attribute,
 class EnvisModule(Serializable):
     """
     Envismodule is the base module for pytorch modules.
-    All other pytorch modules when called will have
-    EnvisModule as base which is used to serialize and
-    decirialize data objects.
+    When other PyTorch modules are called, they will use
+    EnvisModule as a base to serialize and de-serialize data.
+
     """
     def __init__(
             self,
@@ -43,6 +43,9 @@ class EnvisModule(Serializable):
 
     @property
     def envis_state(self):
+        '''
+        Returns the state of envis.
+        '''
         if self._envis_state is None:
             self._envis_state = EnvisTensors(
                 storage="storage",
@@ -52,10 +55,18 @@ class EnvisModule(Serializable):
         return self._envis_state
 
     def load_envis_state(self, state: Dict):
+        '''
+        Loads the envis state dict.
+        '''
         self.original_reference.load_state_dict(state)
 
     def serialize(self):
         # TODO decide how to fill storage from config
+        '''
+        Serialize refers to the process of converting a data
+        object into a format that allows us to store or
+        transmit the data.
+        '''
         response_dict = {}
         response_dict["class_ref_name"] = serialize_attribute(
             self.get_name(self.class_reference))
@@ -64,6 +75,20 @@ class EnvisModule(Serializable):
 
     @classmethod
     def deserialize(cls, obj: Dict):
+        '''
+        Deserialize is the opposite process of serialize where
+        the objects can be recreated when needed.
+
+        Parameters
+        -----------
+        obj: object
+            The object to deserialize.
+
+        Returns
+        --------
+        deserialized_obj: object
+            The deserialized object.
+        '''
         state = deserialize_attribute(obj["state"])
         class_ref = obj["class_ref_name"]
         return cls(class_ref_name=class_ref, state=state)

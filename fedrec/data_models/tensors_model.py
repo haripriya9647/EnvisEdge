@@ -11,9 +11,9 @@ from fedrec.utilities.registry import Registrable
 class EnvisTensors(Serializable):
     """
     The EnvisTensors class majorly focuses on naming
-    tensor states ,their paths,collecting torch object
-    with serialization and deserialization methods
-    implemented.
+    tensor states ,splitting their paths and collecting
+    torch objects with the help of implementation of
+    serialization and deserialization methods.
 
     Parameters
     ----------
@@ -87,13 +87,6 @@ class EnvisTensors(Serializable):
     def serialize(self):
         """
         Serializes a tensor object.
-
-        Parameters
-        -----------
-        obj: object
-            The object to serialize.
-        file: file
-            The file to write to.
 
         Returns
         --------
