@@ -21,17 +21,24 @@ from torch.nn.parameter import Parameter
 
 
 def md_solver(n, alpha, d0=None, B=None, round_dim=True, k=None):
-    '''
+    """
     An external facing function call for mixed-dimension assignment
     with the alpha power temperature heuristic
     Inputs:
-    n -- (torch.LongTensor) ; Vector of num of rows for each embedding matrix
-    alpha -- (torch.FloatTensor); Scalar, non-negative, controls dim. skew
-    d0 -- (torch.FloatTensor); Scalar, baseline embedding dimension
-    B -- (torch.FloatTensor); Scalar, parameter budget for embedding layer
-    round_dim -- (bool); flag for rounding dims to nearest pow of 2
-    k -- (torch.LongTensor) ; Vector of average number of queries per inference
-    ''' #noqa: E501
+    -------
+    n : (torch.LongTensor)
+      Vector of num of rows for each embedding matrix
+    alpha : (torch.FloatTensor)
+       Scalar, non-negative, controls dim. skew
+    d0 : (torch.FloatTensor)
+       Scalar, baseline embedding dimension
+    B : (torch.FloatTensor)
+       Scalar, parameter budget for embedding layer
+    round_dim : (bool)
+       flag for rounding dims to nearest pow of 2
+    k : (torch.LongTensor)
+       Vector of average number of queries per inference
+    """
     n, indices = torch.sort(n)
     k = k[indices] if k is not None else torch.ones(len(n))
     d = alpha_power_rule(n.type(torch.float) / k, alpha, d0=d0, B=B)
@@ -78,7 +85,7 @@ def pow_2_round(dims):
 @registry.load("embedding", "torch_bag")
 class EmbeddingBag(nn.EmbeddingBag):
     '''
-    The embedding bag function sums the "Bags" of embeddings without
+    The embedding bag class sums the "Bags" of embeddings without
     noticing the intermediate embeddings.EmbeddedBag is a time and
     cost efficient process.
 
@@ -125,7 +132,7 @@ class EmbeddingBag(nn.EmbeddingBag):
 @registry.load("embedding", "pr_emb")
 class PrEmbeddingBag(nn.Module):
     '''
-    PrEmbeddingBag function assists in initializing and
+    PrEmbeddingBag class assists in initializing and
     assigning the values to the parameters such as weights,
     num_embeddings, embedding_dim, base_dim, index for summation.
 
@@ -140,6 +147,7 @@ class PrEmbeddingBag(nn.Module):
     index : int
          the index of embedding
     '''
+
     def __init__(self,
                  num_embeddings,
                  embedding_dim,
