@@ -15,13 +15,13 @@ import akka.actor.typed.PostStop
 object Aggregator {
     def apply(aggId: AggregatorIdentifier): Behavior[Command] =
         Behaviors.setup(new Aggregator(_, aggId))
-    
+
     trait Command
 
     // In case of any Trainer / Aggregator (Child) Termination
     private final case class AggregatorTerminated(actor: ActorRef[Aggregator.Command], aggId: AggregatorIdentifier)
         extends Aggregator.Command
-    
+
     private final case class TrainerTerminated(actor: ActorRef[Trainer.Command], traId: TrainerIdentifier)
         extends Aggregator.Command
 
@@ -30,6 +30,13 @@ object Aggregator {
 }
 
 class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIdentifier) extends AbstractBehavior[Aggregator.Command](context) {
+    """
+    Aggretator class follows a step by step process in
+    which first it requests the trainer and waits for the
+    trainer to register.Once its done,it requests for
+    aggretator and once the registration part of aggretator
+    is also done it finally requests for a real time graph.
+    """
     import Aggregator._
     import FLSystemManager.{ RequestTrainer, TrainerRegistered, RequestAggregator, AggregatorRegistered, RequestRealTimeGraph }
 
@@ -42,12 +49,20 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
     // List of trainers which are children of this aggregator
     var trainerIdsToRef : MutableMap[TrainerIdentifier, ActorRef[Trainer.Command]] = MutableMap.empty
 
+    // Aggretator gets started
     context.log.info("Aggregator {} started", aggId.toString())
 
-    def getTrainerRef(trainerId: TrainerIdentifier): ActorRef[Trainer.Command] = {
+    def getTrainerRef(trainerId: TrainerIdentifier):
+    """
+    Get trainer reference method takes trainerId as argument and
+    checks for few cases whether the trainers parent is valid or
+    not using aggregator id and if above checks fails it creates
+    a new trainer actor.
+    """
+    ActorRef[Trainer.Command] = {
         trainerIdsToRef.get(trainerId) match {
             case Some(actorRef) =>
-                // Need to check whether the trainer parent is valid or not using aggId 
+                // Need to check whether the trainer parent is valid or not using aggId
                 actorRef
             case None =>
                 context.log.info("Creating new Trainer actor for {}", trainerId.toString())
@@ -57,8 +72,14 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
                 actorRef
         }
     }
-        
+
     def getAggregatorRef(aggregatorId: AggregatorIdentifier): ActorRef[Aggregator.Command] = {
+        """
+        Get Aggregator Reference method takes aggregatorId as
+        argument and checks for few cases whether the trainers
+        parent is valid or not using aggregator id and if above
+        checks fails it creates a new aggregrator actor.
+        """
         aggregatorIdsToRef.get(aggregatorId) match {
             case Some(actorRef) =>
                 actorRef
@@ -116,14 +137,14 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
                         }
                     }
                 }
-                this    
-            
+                this
+
             case trackMsg @ RequestRealTimeGraph(requestId, entity, replyTo) =>
                 entity match {
-                    case Left(x) => 
+                    case Left(x) =>
                         context.log.info("Cannot get realTimeGraph for an orchestrator entity: got {}", x.toString())
 
-                    case Right(x) => 
+                    case Right(x) =>
                         if (aggId == x) {
                             // return/build the current node's realTimeGraph
                             context.log.info("Creating new realTimeGraph query actor for {}", entity)
@@ -149,18 +170,18 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
                         }
                 }
                 this
-            
+
             case AggregatorTerminated(actor, aggId) =>
                 context.log.info("Aggregator with id {} has been terminated", aggId.toString())
                 // TODO
                 this
-            
+
             case TrainerTerminated(actor, traId) =>
                 context.log.info("Trainer with id {} has been terminated", traId.toString())
                 // TODO
                 this
         }
-    
+
     override def onSignal: PartialFunction[Signal,Behavior[Command]] = {
         case PostStop =>
             context.log.info("Aggregator {} stopped", aggId.toString())
