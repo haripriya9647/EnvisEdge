@@ -30,13 +30,13 @@ object Aggregator {
 }
 
 class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIdentifier) extends AbstractBehavior[Aggregator.Command](context) {
-    """
+    /**
     Aggretator class follows a step by step process in
     which first it requests the trainer and waits for the
     trainer to register.Once its done,it requests for
     aggretator and once the registration part of aggretator
     is also done it finally requests for a real time graph.
-    """
+    */
     import Aggregator._
     import FLSystemManager.{ RequestTrainer, TrainerRegistered, RequestAggregator, AggregatorRegistered, RequestRealTimeGraph }
 
@@ -53,12 +53,11 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
     context.log.info("Aggregator {} started", aggId.toString())
 
     def getTrainerRef(trainerId: TrainerIdentifier):
-    """
-    Get trainer reference method takes trainerId as argument and
-    checks for few cases whether the trainers parent is valid or
-    not using aggregator id and if above checks fails it creates
-    a new trainer actor.
-    """
+    /**
+    Takes trainerId as argument and checks for few cases whether
+    the trainers parent is valid or not using aggregator id and
+    if above checks fails it creates a new trainer actor.
+    */
     ActorRef[Trainer.Command] = {
         trainerIdsToRef.get(trainerId) match {
             case Some(actorRef) =>
@@ -74,12 +73,11 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
     }
 
     def getAggregatorRef(aggregatorId: AggregatorIdentifier): ActorRef[Aggregator.Command] = {
-        """
-        Get Aggregator Reference method takes aggregatorId as
-        argument and checks for few cases whether the trainers
-        parent is valid or not using aggregator id and if above
-        checks fails it creates a new aggregrator actor.
-        """
+        /**
+        Takes aggregatorId as argument and checks for few cases whether
+        the trainers parent is valid or not using aggregator id and if
+        above checks fails it creates a new aggregrator actor.
+        */
         aggregatorIdsToRef.get(aggregatorId) match {
             case Some(actorRef) =>
                 actorRef
