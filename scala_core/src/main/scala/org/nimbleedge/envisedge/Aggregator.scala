@@ -13,15 +13,22 @@ import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
 object Aggregator {
+    /**
+      *As the FL system consists of three major entities,
+      *with aggregator being one of the *entity which acts
+      *like an intermediate node *between orchestrator and
+      *trainer nodes.An *aggregator can have other aggregators
+      *and trainers as children.
+      */
     def apply(aggId: AggregatorIdentifier): Behavior[Command] =
         Behaviors.setup(new Aggregator(_, aggId))
 
     trait Command
 
-    // In case of any Trainer / Aggregator (Child) Termination
+    // In case of any Aggregator (Child) Termination
     private final case class AggregatorTerminated(actor: ActorRef[Aggregator.Command], aggId: AggregatorIdentifier)
         extends Aggregator.Command
-
+    // In case of any Trainer(Child) Termination
     private final case class TrainerTerminated(actor: ActorRef[Trainer.Command], traId: TrainerIdentifier)
         extends Aggregator.Command
 
@@ -54,10 +61,11 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
 
     def getTrainerRef(trainerId: TrainerIdentifier):
     /**
-    Takes trainerId as argument and checks for few cases whether
-    the trainers parent is valid or not using aggregator id and
-    if above checks fails it creates a new trainer actor.
-    */
+      *Takes trainerId as argument and checks for few cases
+      *whether the trainers parent is valid or not using
+      *aggregator id and if above checks fails it creates
+      *a new trainer actor.
+      */
     ActorRef[Trainer.Command] = {
         trainerIdsToRef.get(trainerId) match {
             case Some(actorRef) =>
