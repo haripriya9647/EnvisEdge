@@ -23,12 +23,18 @@ class FemnistProcessor:
         self.normalize = normalize
 
     def process_data(self):
+        """
+        It perform data transformations and splits the data
+        """
         for split in self.splits:
             print(f"preprocessing data_{split}...")
             _, df = self.process_file(split)
             self.create_index_file(split, df)
 
     def process_file(self, split) -> Tuple[str, pd.DataFrame]:
+        """
+        Reads a csv file into a dataframe and then sorts the dataframe values
+        """
         print("preprocessing datasset...")
         output_path = self.meta_data_dir+"/{}_processed.csv".format(split)
         if os.path.exists(output_path):
