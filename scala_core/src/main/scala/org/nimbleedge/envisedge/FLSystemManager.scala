@@ -20,23 +20,23 @@ object FLSystemManager {
     // Creating + Getting the actor references
     final case class RequestOrchestrator(requestId: Long, orcId: OrchestratorIdentifier, replyTo: ActorRef[OrchestratorRegistered])
         extends FLSystemManager.Command
-    
+
     final case class OrchestratorRegistered(requestId: Long, actor: ActorRef[Orchestrator.Command])
 
     final case class RequestAggregator(requestId: Long, aggId: AggregatorIdentifier, replyTo: ActorRef[AggregatorRegistered])
         extends FLSystemManager.Command
         with Orchestrator.Command
         with Aggregator.Command
-    
+
     final case class AggregatorRegistered(requestId: Long, actor: ActorRef[Aggregator.Command])
 
     final case class RequestTrainer(requestId: Long, traId: TrainerIdentifier, replyTo: ActorRef[TrainerRegistered])
         extends FLSystemManager.Command
         with Orchestrator.Command
         with Aggregator.Command
-    
+
     final case class TrainerRegistered(requestId: Long, actor: ActorRef[Trainer.Command])
-    
+
     // In case of an Orchestrator Termination
     private final case class OrchestratorTerminated(actor: ActorRef[Orchestrator.Command], orcId: OrchestratorIdentifier)
         extends FLSystemManager.Command
@@ -46,7 +46,7 @@ object FLSystemManager {
         extends FLSystemManager.Command
         with Orchestrator.Command
         with Aggregator.Command
-    
+
     final case class RespondRealTimeGraph(requestId: Long, realTimeGraph: TopologyTree)
 
     // Start cycle
@@ -59,6 +59,7 @@ object FLSystemManager {
 }
 
 class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends AbstractBehavior[FLSystemManager.Command](context) {
+
     import FLSystemManager._
 
     // TODO
@@ -87,21 +88,21 @@ class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends Ab
                 val actorRef = getOrchestratorRef(orcId)
                 replyTo ! OrchestratorRegistered(requestId, actorRef)
                 this
-            
+
             case trackMsg @ RequestAggregator(requestId, aggId, replyTo) =>
                 val orcId = aggId.getOrchestrator()
 
                 val orchestratorRef = getOrchestratorRef(orcId)
                 orchestratorRef ! trackMsg
                 this
-            
+
             case trackMsg @ RequestTrainer(requestId, traId, replyTo) =>
                 val orcId = traId.getOrchestrator()
 
                 val orchestratorRef = getOrchestratorRef(orcId)
                 orchestratorRef ! trackMsg
                 this
-            
+
             case trackMsg @ RequestRealTimeGraph(requestId, entity, replyTo) =>
                 val orcId = entity match {
                     case Left(x) => x
@@ -115,11 +116,11 @@ class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends Ab
                         context.log.info("Orchestrator with id {} does not exist, can't request realTimeGraph", orcId.name())
                 }
                 this
-            
+
             case StartCycle(requestId, replyTo) =>
                 // TODO
                 this
-            
+
             case OrchestratorTerminated(actor, orcId) =>
                 context.log.info("Orchestrator with id {} has been terminated", orcId.name())
                 // TODO
