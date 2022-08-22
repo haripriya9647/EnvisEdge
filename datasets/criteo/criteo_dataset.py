@@ -9,7 +9,10 @@ from torch.utils.data import Dataset
 
 class CriteoDataset(Dataset):
     """
-    Criteo data set is an online advertising dataset released by Criteo Labs.
+    Criteo data set is an online advertising dataset released
+    by Criteo Labs. Link to dataset - 'link<https://figshare.com/
+    articles/dataset/Kaggle_Display_Advertising_Challenge_dataset
+    /5732310>'__
 
     Attributes
     ----------
@@ -24,6 +27,7 @@ class CriteoDataset(Dataset):
          for defining the maximum range of indices
 
     """
+
     def __init__(
             self,
             X_int, X_cat, y,
