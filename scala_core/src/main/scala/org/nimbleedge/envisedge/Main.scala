@@ -17,8 +17,16 @@ object Main {
                  ├── T3
                  ├── T4
                  └── A3
-                     ├── T5 
+                     ├── T5
                      └── T6
+
+        * 01 is considered as Orchestrator Identifier because its
+        a root node
+        * a1,a2,a3 are considered as aggregator identifier as they
+        are the intermidiate nodes and as well as left and right
+        child of orchestrator
+        * t1,t2,t3,t4,t5 are children of aggregators
+        */
 
         */
         val o1 = OrchestratorIdentifier("O1")
@@ -39,13 +47,19 @@ object Main {
              ├── A21
              │   ├── T21
              │   └── A23
-             |       ├── T23 
+             |       ├── T23
              |       └── T24
              |
              └── A22
                  ├── T22
                  └── T25
 
+        * 02 is considered as Orchestrator Identifier because its
+        a root node
+        * a21,a22,a23 are considered as aggregator identifier as they
+        are the intermidiate nodes and as well as left and right
+        child of orchestrator
+        * t21,t22,t23,t24,t25 are children of aggregators
         */
         val o2 = OrchestratorIdentifier("O2")
         val a21 = AggregatorIdentifier(o2, "A21")
@@ -57,6 +71,7 @@ object Main {
         val t24 = TrainerIdentifier(a23, "T24")
         val t25 = TrainerIdentifier(a22, "T25")
 
+        // printing all the nodes of FLsystem manager
         println(t1.toString())
         println(t2.toString())
         println(t3.toString())
