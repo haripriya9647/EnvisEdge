@@ -9,11 +9,13 @@ from fedrec.serialization.serializer_registry import (deserialize_attribute,
 @Registrable.register_class_ref
 class EnvisModule(Serializable):
     """
-    Envismodule is the base module for pytorch modules.
-    When other PyTorch modules are called, they will use
-    EnvisModule as a base to serialize and de-serialize data.
+    Envismodule is the base module for pytorch
+    modules.When other PyTorch modules are called,
+    they will use EnvisModule as a base to serialize
+    and de-serialize data.
 
     """
+
     def __init__(
             self,
             class_ref_name) -> None:
@@ -28,7 +30,6 @@ class EnvisModule(Serializable):
     def __call__(self, *args: Any, **kwds: Any):
         self.original_reference = self.class_reference(*args, **kwds)
         return self
-
 
     def __getattr__(self, __name: str) -> Any:
         if hasattr(self.class_reference, __name):
@@ -63,9 +64,9 @@ class EnvisModule(Serializable):
     def serialize(self):
         # TODO decide how to fill storage from config
         '''
-        Serialize refers to the process of converting a data
-        object into a format that allows us to store or
-        transmit the data.
+        Serialize refers to the process of converting
+        a data object into a format that allows us to
+        store or transmit the data.
         '''
         response_dict = {}
         response_dict["class_ref_name"] = serialize_attribute(
@@ -76,8 +77,8 @@ class EnvisModule(Serializable):
     @classmethod
     def deserialize(cls, obj: Dict):
         '''
-        Deserialize is the opposite process of serialize where
-        the objects can be recreated when needed.
+        Deserialize is the opposite process of serialize
+        where the objects can be recreated when needed.
 
         Parameters
         -----------
