@@ -28,7 +28,6 @@ object Main {
         * t1,t2,t3,t4,t5 are children of aggregators
         */
 
-        */
         val o1 = OrchestratorIdentifier("O1")
         val a1 = AggregatorIdentifier(o1, "A1")
         val a2 = AggregatorIdentifier(o1, "A2")
