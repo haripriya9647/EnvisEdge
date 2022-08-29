@@ -12,13 +12,12 @@ import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
   /**
-      *The FL System Manager is the top level actor of the
-      *FL System and it consists of three entities named
-      *Orchestrator, Aggregator and Trainer.It consists of
-      *a tree like structure where orchestrator is the root
-      *node following with aggregator as an intermediate
-      *between orchestrator and trainer.An aggrega=rator
-      *can have trainer and other aggregators as children.
+    *A FLSystemManager creates actors and requests actor
+    *references from an orchestrator, followed by the process
+    *of registering the orchestrator. The same process applies
+    *to aggregators and trainers, where first they are requested,
+    *then they are registered. As soon as an Orchestrator terminates,
+    *it requests a real-time graph and starts the cycle.
     */
 object FLSystemManager {
     def apply(): Behavior[Command] =
@@ -74,7 +73,14 @@ object FLSystemManager {
 }
 
     /**
-       * Implementation of FL System Manager starts here
+      *The FL SystemManager is the top level actor of
+      *the FL System and it consists of three entities named
+      *Orchestrator, Aggregator and Trainer.It consists of
+      *a tree like structure where orchestrator is the root
+      *node following with aggregator as an intermediate
+      *between orchestrator and trainer.An aggregator
+      *can have trainer and other aggregators as children.
+      *Implementation of FL SystemManager starts here.
        */
 class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends AbstractBehavior[FLSystemManager.Command](context) {
     import FLSystemManager._
