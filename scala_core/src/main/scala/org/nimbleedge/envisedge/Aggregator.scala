@@ -12,17 +12,16 @@ import akka.actor.typed.scaladsl.AbstractBehavior
 import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
+  /**
+      *As the FL system consists of three major entities,
+      *with aggregator being one of the entity which acts
+      *like an intermediate node between orchestrator and
+      *trainer nodes. An aggregator can have other aggregators
+      *and trainers as children.
+      */
 object Aggregator {
     def apply(aggId: AggregatorIdentifier): Behavior[Command] =
         Behaviors.setup(new Aggregator(_, aggId))
-    /**
-      *As the FL system consists of three major entities,
-      *with aggregator being one of the *entity which acts
-      *like an intermediate node *between orchestrator and
-      *trainer nodes.An *aggregator can have other aggregators
-      *and trainers as children.
-      */
-
     trait Command
 
     // In case of any Aggregator (Child) Termination
@@ -36,14 +35,14 @@ object Aggregator {
     // Add messages here
 }
 
-class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIdentifier) extends AbstractBehavior[Aggregator.Command](context) {
-  /**
+   /**
     *Aggretator class follows a step by step process in
     *which first it requests the trainer and waits for the
-    *trainer to register.Once its done,it requests for
+    *trainer to register. Once its done, it requests for
     *aggretator and once the registration part of aggretator
     *is also done it finally requests for a real time graph.
     */
+class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIdentifier) extends AbstractBehavior[Aggregator.Command](context) {
     import Aggregator._
     import FLSystemManager.{ RequestTrainer, TrainerRegistered, RequestAggregator, AggregatorRegistered, RequestRealTimeGraph }
 
@@ -58,13 +57,13 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
     // Aggregator gets started
     context.log.info("Aggregator {} started", aggId.toString())
 
-    def getTrainerRef(trainerId: TrainerIdentifier):
-    /**
+     /**
       *Takes trainerId as argument and checks for few cases
       *whether the trainers parent is valid or not using
       *aggregator id and if above checks fails it creates
       *a new trainer actor.
       */
+    def getTrainerRef(trainerId: TrainerIdentifier):
     ActorRef[Trainer.Command] = {
         trainerIdsToRef.get(trainerId) match {
             case Some(actorRef) =>
@@ -79,13 +78,13 @@ class Aggregator(context: ActorContext[Aggregator.Command], aggId: AggregatorIde
         }
     }
 
-    def getAggregatorRef(aggregatorId:
-    AggregatorIdentifier): ActorRef[Aggregator.Command] = {
-      /**
-        *Takes aggregatorId as argument and checks *for few cases whether
-        *the trainers parent is valid or not using *aggregator id and if
+    /**
+        *Takes aggregatorId as argument and checks for few cases whether
+        *the trainers parent is valid or not using aggregator id and if
         *above checks fails it creates a new aggregrator actor.
         */
+    def getAggregatorRef(aggregatorId:
+    AggregatorIdentifier): ActorRef[Aggregator.Command] = {
         aggregatorIdsToRef.get(aggregatorId) match {
             case Some(actorRef) =>
                 actorRef
