@@ -11,8 +11,7 @@ import akka.actor.typed.scaladsl.AbstractBehavior
 import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
-object FLSystemManager {
-    /**
+  /**
       *The FL System Manager is the top level actor of the
       *FL System and it consists of three entities named
       *Orchestrator, Aggregator and Trainer.It consists of
@@ -21,6 +20,7 @@ object FLSystemManager {
       *between orchestrator and trainer.An aggrega=rator
       *can have trainer and other aggregators as children.
     */
+object FLSystemManager {
     def apply(): Behavior[Command] =
         Behaviors.setup[Command](new FLSystemManager(_))
 
@@ -73,10 +73,10 @@ object FLSystemManager {
     // Add more messages
 }
 
-class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends AbstractBehavior[FLSystemManager.Command](context) {
     /**
        * Implementation of FL System Manager starts here
        */
+class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends AbstractBehavior[FLSystemManager.Command](context) {
     import FLSystemManager._
 
     // TODO
