@@ -10,6 +10,11 @@ import java.nio.ByteBuffer
 	  *connection between any two connected modes. Because any
 	  *two nodes can have only one mutual connection, tree
 	  *topologies create a natural parent and child hierarchy.
+	  *Orchestrator, aggregators and identifiers are part of the
+	  *Topology Tree itself. Where, the parent node of the Topology
+	  *tree is identified as orchestrator. Aggregators are the
+	  *intermediate node between the Orchestrators and identifiers.
+	  *Identifiers are childrens of aggregators.
 	  */
 sealed abstract class TopologyTree {
 	def computeDigest() : Array[Byte]
