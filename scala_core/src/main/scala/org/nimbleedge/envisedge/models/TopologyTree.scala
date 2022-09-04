@@ -4,8 +4,8 @@ import java.security.{MessageDigest => MD}
 import java.nio.ByteBuffer
 
     /**
-      * A topology tree data structure is a special type of
-	  * structure where many connected elements are arranged
+      * A topology tree data structure is a special type
+	  * of structure where many connected elements are arranged
 	  * like the branches of tree. Here, there can be one
 	  * connection between any two connected modes. Because any
 	  * two nodes can have only one mutual connection, tree
