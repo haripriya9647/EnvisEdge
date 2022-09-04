@@ -4,7 +4,7 @@ import java.security.{MessageDigest => MD}
 import java.nio.ByteBuffer
 
     /**
-     * A topology tree data structure is a special type of
+      *A topology tree data structure is a special type of
 	  *structure where many connected elements are arranged
 	  *like the branches of tree. Here, there can be one
 	  *connection between any two connected modes. Because any
@@ -63,13 +63,10 @@ case class Leaf(value: TrainerIdentifier) extends TopologyTree {
 	override def computeDigest(): Array[Byte] = hash("_Leaf" + value.name(), Set.empty)
 }
 
-// Node can be only OrchestratorIdentifier or AggregatorIdentifier
-// It should have more that one children
-
    /**
-	  * Here, node can always be either a OrchestratorIdentifier
-	  * or AggregatorIdentifier as left and right child and it
-	  * should have more than one children.
+	  * Children nodes here should always be either Orchestrator
+	  * Identifiers or Aggregator Identifiers, and there shouldn't
+	  * be more than one child per node.
 	  */
 case class Node(value: Either[OrchestratorIdentifier, AggregatorIdentifier], children: Set[TopologyTree]) extends TopologyTree {
 	override def toString(): String = {
