@@ -4,7 +4,6 @@ import java.security.{MessageDigest => MD}
 import java.nio.ByteBuffer
 
     /**
-	  * connection between any two connected modes. Because any
      *A topology tree data structure is a special type
 	  *of structure where many connected elements are arranged
 	  *like the branches of tree. Here, there can be one
