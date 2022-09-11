@@ -12,12 +12,13 @@ import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
   /**
-    *A FLSystemManager creates actors and requests actor
-    *references from an orchestrator, followed by the process
-    *of registering the orchestrator. The same process applies
-    *to aggregators and trainers, where first they are requested,
-    *then they are registered. As soon as an Orchestrator terminates,
-    *it requests a real-time graph and starts the cycle.
+    *What we are creating here is a FLSystemManager object.
+    *The FLSystemManager creates actors and requests actor
+    *references from an orchestrator, then registers the
+    *orchestrator. A similar process applies to aggregators
+    *and trainers, where they are first requested, and then
+    *registered. An Orchestrator starts the cycle as soon as
+    *it terminates by requesting a real-time graph.
     */
 object FLSystemManager {
     def apply(): Behavior[Command] =
@@ -133,12 +134,9 @@ class FLSystemManager(context: ActorContext[FLSystemManager.Command]) extends Ab
                     case Left(x) => x
                     case Right(x) => x.getOrchestrator()
                 }
-            /**
-                *If the requested orchestrator id matches with the
-                *actor reference then it tracks the message and
                 *requests for a real time graph else it shows error
-                *as the orchestrator id doesn't exists.
-              */
+
+            // If the requested orchestrator id matches with the actor reference then it tracks the message and requests for a real time graph else it shows error as the orchestrator id doesn't exists.
                 orcIdToRef.get(orcId) match {
                     case Some(actorRef) =>
                         actorRef ! trackMsg
