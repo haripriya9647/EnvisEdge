@@ -13,11 +13,11 @@ import akka.actor.typed.Signal
 import akka.actor.typed.PostStop
 
   /**
-      *As the FL system consists of three major entities,
-      *with aggregator being one of the entity which acts
-      *like an intermediate node between orchestrator and
-      *trainer nodes. An aggregator can have other aggregators
-      *and trainers as children.
+      *The FL system is comprised of three major entities,
+      *and the aggregator serves as an intermediary between
+      *the orchestrator and the trainer. The aggregator can
+      *have children, such as other aggregators and trainers.
+      *What we are creating here is an aggregator object.
       */
 object Aggregator {
     def apply(aggId: AggregatorIdentifier): Behavior[Command] =
